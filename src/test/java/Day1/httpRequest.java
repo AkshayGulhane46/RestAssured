@@ -1,11 +1,12 @@
 package Day1;
 import org.testng.annotations.Test;
-import io.restassured.RestAssured.*;
-import io.restassured.matcher.RestAssuredMatchers.*;
-import org.hamcrest.Matchers.*;
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.equalTo;
 
 /*
 GHERKIN KEYWORDS
@@ -30,13 +31,22 @@ public class httpRequest {
     @Test
     // test method
     void getUser(){
+        // currently as we dont have any prequisites given () is optionsal
         given()
-         .when()
-            .then();
+        .when()
+            .get("https://reqres.in/api/users?page=2")
+                .then()
+                    .statusCode(200)
+                    .body("page",equalTo(2))
+                    .log().all();
     }
 
-    private void then() {
+    void createUser(){
+        given()
+                .when()
+                .then();
     }
+
 
 
 }
