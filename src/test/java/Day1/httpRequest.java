@@ -61,6 +61,12 @@ public class httpRequest {
         ;
     }
 
+    @Test
+    public void updateUser(){
+        given();
+
+    }
+
 
 
 }
