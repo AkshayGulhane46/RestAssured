@@ -30,7 +30,7 @@ public class httpRequest {
     // BDD style we need to follow
     // Gherkin Language which uses keywords like Given etc
     // Rest Assured supports BDD style
-
+    int id;
     @Test
     // test method
     void getUser(){
@@ -63,7 +63,9 @@ public class httpRequest {
 
     @Test
     public void updateUser(){
-        given();
+        given()
+                .when()
+                .then();
 
     }
 
