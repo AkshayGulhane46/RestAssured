@@ -43,25 +43,27 @@ public class httpRequest {
                     .body("page",equalTo(2))
                     .log().all();
     }
-    @Test
+    @Test(priority = 1)
     void createUser(){
         HashMap data = new HashMap();
         data.put("name","Akshhay");
         data.put("Job","QA");
 
-        given()
+        id = given()
                 .contentType("application/json")
                 .body(data)
 
                 .when()
                 .post("https://reqres.in/api/users")
-                .then()
-                .statusCode(201)
-                .log().all()
-        ;
+//                .then()
+//                .statusCode(201)
+//                .log().all()
+                .jsonPath().getInt("id");
+        // we are getting ID of the created record
+
     }
 
-    @Test
+    @Test(priority = 2)
     public void updateUser(){
         given()
                 .when()
