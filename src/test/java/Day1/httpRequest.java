@@ -43,7 +43,7 @@ public class httpRequest {
                     .body("page",equalTo(2))
                     .log().all();
     }
-    @Test(priority = 1)
+    @Test(priority = 2)
     void createUser(){
         HashMap data = new HashMap();
         data.put("name","Akshhay");
@@ -63,11 +63,22 @@ public class httpRequest {
 
     }
 
-    @Test(priority = 2)
-    public void updateUser(){
+    @Test(priority = 3)
+    public void updateUser() {
+        HashMap data = new HashMap();
+        data.put("name", "Akshhay");
+        data.put("Job", "Senior QA");
+
         given()
+                .contentType("application/json")
+                .body(data)
+
                 .when()
-                .then();
+                    .put("https://reqres.in/api/users/" + id)
+
+                .then()
+                .statusCode(201)
+                .log().all();
 
     }
 
