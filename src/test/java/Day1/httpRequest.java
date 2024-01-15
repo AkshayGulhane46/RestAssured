@@ -63,7 +63,7 @@ public class httpRequest {
 
     }
 
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void updateUser() {
         HashMap data = new HashMap();
         data.put("name", "Akshhay");
