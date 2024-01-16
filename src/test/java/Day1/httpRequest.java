@@ -31,7 +31,7 @@ public class httpRequest {
     // Gherkin Language which uses keywords like Given etc
     // Rest Assured supports BDD style
     int id;
-    @Test
+    @Test(priority = 1)
     // test method
     void getUser(){
         // currently as we dont have any prequisites given () is optionsal
@@ -63,7 +63,8 @@ public class httpRequest {
 
     }
 
-    @Test(priority = 4)
+    @Test(priority = 3, dependsOnMethods = {"createUser"})
+    // if create user is passed then only we will run this update user
     public void updateUser() {
         HashMap data = new HashMap();
         data.put("name", "Akshhay");
@@ -77,9 +78,17 @@ public class httpRequest {
                     .put("https://reqres.in/api/users/" + id)
 
                 .then()
-                .statusCode(201)
+                .statusCode(200)
                 .log().all();
-
+    }
+    @Test
+    void deleteUser(){
+        given()
+                .when()
+                .delete("https://reqres.in/api/users/" + id)
+                .then()
+                .statusCode(204)
+                .log().all();
     }
 
 
