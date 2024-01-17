@@ -87,7 +87,7 @@ public class httpRequest {
                 .when()
                 .delete("https://reqres.in/api/users/" + id)
                 .then()
-                .statusCode(204)
+                .statusCode(203)
                 .log().all();
     }
 
