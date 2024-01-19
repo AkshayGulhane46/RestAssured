@@ -17,7 +17,7 @@ public class DifferentWaysToCreatePostRequestBody {
     public void testPostUsingHashMap(){
         HashMap data = new HashMap();
         data.put("name","Akshay");
-        data.put("gender","Male");
+        data.put("gender","male");
         data.put("Physics",34);
 
         String optSubjects[] = {"C","C++"};
@@ -28,14 +28,14 @@ public class DifferentWaysToCreatePostRequestBody {
                 .contentType("application/json")
                 .body(data)
                 .when()
-                .post("http://localhost:8080/")
+                .post("http://localhost:8080/students")
                 .then()
                 .statusCode(201)
                 .body("name",equalTo("Akshay"))
                 .body("gender",equalTo("male"))
                 .body("optSubjects[0]",equalTo("C"))
                 .body("optSubjects[1]",equalTo("C++"))
-                .header("Content-Type","application/json; charset=utf-8")
+                .header("Content-Type","application/json")
                 .log().all()
         ;
     }
@@ -44,7 +44,7 @@ public class DifferentWaysToCreatePostRequestBody {
     void testDelete(){
         given()
                 .when()
-                .delete("http://localhost:8080/14")
+                .delete("http://localhost:8080/students/ef07")
                 .then()
                 .statusCode(200);
     }
