@@ -44,7 +44,7 @@ public class DifferentWaysToCreatePostRequestBody {
     void testDelete(){
         given()
                 .when()
-                .delete("http://localhost:8080/students/ef07")
+                .delete("http://localhost:8080/students/c77c")
                 .then()
                 .statusCode(200);
     }
