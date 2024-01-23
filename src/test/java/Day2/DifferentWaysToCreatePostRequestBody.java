@@ -1,4 +1,5 @@
 package Day2;
+import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -42,8 +43,8 @@ public class DifferentWaysToCreatePostRequestBody {
 
     //Post a content using json.org
     @Test(priority = 1)
-    public void testPostUsingJsonOrg(){
-        HashMap data = new HashMap();
+    public void testPostUsingJsonLibrary(){
+        JSONObject data = new JSONObject();
         data.put("name","Akshay");
         data.put("gender","male");
         data.put("Physics",34);
