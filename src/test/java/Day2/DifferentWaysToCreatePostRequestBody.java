@@ -55,7 +55,35 @@ public class DifferentWaysToCreatePostRequestBody {
 
         given()
                 .contentType("application/json")
-                .body(data)
+                .body(data.toString())// data should be in String format here
+                .when()
+                .post("http://localhost:8080/students")
+                .then()
+                .statusCode(201)
+                .body("name",equalTo("Akshay"))
+                .body("gender",equalTo("male"))
+                .body("optSubjects[0]",equalTo("C"))
+                .body("optSubjects[1]",equalTo("C++"))
+                .header("Content-Type","application/json")
+                .log().all()
+        ;
+    }
+
+    //Post a content using POJO classes
+    @Test(priority = 1)
+    public void testPostUsingPOJOClass(){
+        JSONObject data = new JSONObject();
+        data.put("name","Akshay");
+        data.put("gender","male");
+        data.put("Physics",34);
+
+        String optSubjects[] = {"C","C++"};
+
+        data.put("optSubjects",optSubjects);
+
+        given()
+                .contentType("application/json")
+                .body(data.toString())// data should be in String format here
                 .when()
                 .post("http://localhost:8080/students")
                 .then()
