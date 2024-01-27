@@ -1,7 +1,11 @@
 package Day2;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.*;
@@ -42,7 +46,7 @@ public class DifferentWaysToCreatePostRequestBody {
     }
 
     //Post a content using json.org
-    @Test(priority = 1)
+    //@Test(priority = 1)
     public void testPostUsingJsonLibrary(){
         JSONObject data = new JSONObject();
         data.put("name","Akshay");
@@ -70,26 +74,55 @@ public class DifferentWaysToCreatePostRequestBody {
     }
 
     //Post a content using POJO classes
-    @Test(priority = 1)
+    //@Test(priority = 1)
     public void testPostUsingPOJOClass(){
-        JSONObject data = new JSONObject();
-        data.put("name","Akshay");
-        data.put("gender","male");
-        data.put("Physics",34);
+        // Create objecct of a POJO class
+        Pojo_PostRequest data = new Pojo_PostRequest();
+        data.setName("Vaibhav");
+        data.setGender("Male");
+        data.setEnglish("23");
+        data.setPhysics("22");
+        data.setMaths("23");
 
-        String optSubjects[] = {"C","C++"};
-
-        data.put("optSubjects",optSubjects);
+        String courses[] = {"C","C++"};
+        data.setOptSubjects(courses);
 
         given()
                 .contentType("application/json")
-                .body(data.toString())// data should be in String format here
+                .body(data)
+                .when()
+                .post("http://localhost:8080/students")
+                .then()
+                .statusCode(201)
+                .body("name",equalTo("Vaibhav"))
+                .body("gender",equalTo("Male"))
+                .body("optSubjects[0]",equalTo("C"))
+                .body("optSubjects[1]",equalTo("C++"))
+                .header("Content-Type","application/json")
+                .log().all()
+        ;
+    }
+
+    //Post a content using External JSON file
+    @Test(priority = 1)
+    public void testPostUsingExternalFile() throws FileNotFoundException {
+
+        File f = new File(".\\body.json"); // open file
+        FileReader fr = new FileReader(f);  // read the file
+        JSONTokener jt = new JSONTokener(fr); // sent to JSONTokener
+        JSONObject data = new JSONObject(jt); // sent the tokener output to data
+
+
+
+        given()
+                .contentType("application/json")
+                .body(data.toString())// data should be converted to string before sending
                 .when()
                 .post("http://localhost:8080/students")
                 .then()
                 .statusCode(201)
                 .body("name",equalTo("Akshay"))
-                .body("gender",equalTo("male"))
+                .body("gender",equalTo("Male"))
                 .body("optSubjects[0]",equalTo("C"))
                 .body("optSubjects[1]",equalTo("C++"))
                 .header("Content-Type","application/json")
@@ -102,8 +135,10 @@ public class DifferentWaysToCreatePostRequestBody {
     void testDelete(){
         given()
                 .when()
-                .delete("http://localhost:8080/students/c77c")
+                .delete("http://localhost:8080/students/71e2")
                 .then()
                 .statusCode(200);
     }
+
+
 }
