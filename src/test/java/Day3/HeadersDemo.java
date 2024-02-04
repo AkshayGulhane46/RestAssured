@@ -24,17 +24,17 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class HeadersDemo {
 
-        //@Test(priority = 1)
-        void testCookies(){
+        @Test(priority = 1)
+        void testHeaders(){
             given()
 
                     .when()
                     .get("https://www.google.com")
 
                     .then()
-                    .cookie("AEC","Ae3NU9Ni7YqrINey4mBS_HM-YjPxcmiceBESc_8dEFXjc6VkFEUB5XpYxJY")
-                    // if the test is failed that means the cookie is generated sucessfully
-                    .log().all();
+                    .header("Content-Type","text/html; charset=ISO-8859-1")
+            .header("Content-Encoding","gzip")
+            .header("Server","gws");
 
         }
 
