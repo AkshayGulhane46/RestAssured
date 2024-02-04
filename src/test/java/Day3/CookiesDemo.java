@@ -22,6 +22,7 @@ public class CookiesDemo {
 
     //@Test(priority = 1)
     void testCookies(){
+        System.out.println("Cookies Demo Started");
         given()
 
                 .when()
